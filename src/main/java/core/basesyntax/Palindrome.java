@@ -1,5 +1,7 @@
 package core.basesyntax;
 
+import java.util.stream.Stream;
+
 public class Palindrome {
 
     /**
@@ -20,7 +22,12 @@ public class Palindrome {
      * <p>Пример: Madam, I'm Adam!</p>
      * <p>Результат: true</p>
      */
-    public boolean isPalindrome(String text) {
-        return false;
+    public static boolean isPalindrome(String text) {
+        String regex = "[-/./,/ /'/!/)/(/?]*";
+        return Stream.of(text)
+                .map(makeNoSymbols ->
+                        makeNoSymbols.replaceAll(regex, "").toLowerCase())
+                .anyMatch(isPalindrome ->
+                        isPalindrome.equals(new StringBuilder(isPalindrome).reverse().toString()));
     }
 }
